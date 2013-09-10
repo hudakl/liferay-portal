@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.util.ReleaseInfo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -40,7 +41,11 @@ public class HelloWorldPortlet extends GenericPortlet {
 
 		PrintWriter writer = renderResponse.getWriter();
 
-		writer.print("Welcome to " + ReleaseInfo.getReleaseInfo() + ".");
+		String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday",
+				"Friday", "Saturday", "Sunday"};
+
+		writer.print("Welcome to " + ReleaseInfo.getReleaseInfo() + 
+				" Have a nice " + daysOfWeek[(new Date()).getDay()-1] + "!");
 
 		writer.close();
 	}
