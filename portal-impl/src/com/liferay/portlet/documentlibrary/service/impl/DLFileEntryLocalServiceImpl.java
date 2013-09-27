@@ -538,7 +538,8 @@ public class DLFileEntryLocalServiceImpl
 		Map<String, Serializable> expandoBridgeAttributes =
 			serviceContext.getExpandoBridgeAttributes();
 
-		if (expandoBridgeAttributes.isEmpty()) {
+		if ((expandoBridgeAttributes == null) ||
+				expandoBridgeAttributes.isEmpty()) {
 			ExpandoBridge expandoBridge =
 				ExpandoBridgeFactoryUtil.getExpandoBridge(
 					serviceContext.getCompanyId(), DLFileEntry.class.getName(),
