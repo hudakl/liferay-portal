@@ -112,11 +112,7 @@ if (displayTerms.isNavigationRecent()) {
 	articleSearchContainer.setOrderByType(orderByType);
 }
 
-int status = WorkflowConstants.STATUS_APPROVED;
-
-if (permissionChecker.isContentReviewer(user.getCompanyId(), scopeGroupId)) {
-	status = WorkflowConstants.STATUS_ANY;
-}
+int status = WorkflowConstants.STATUS_ANY;
 
 List resultsList = null;
 int totalVar = 0;
@@ -130,8 +126,6 @@ int totalVar = 0;
 
 		if (displayTerms.getNavigation().equals("mine")) {
 			userId = themeDisplay.getUserId();
-
-			status = WorkflowConstants.STATUS_ANY;
 		}
 
 		totalVar = JournalArticleServiceUtil.getGroupArticlesCount(scopeGroupId, userId, folderId, status);
