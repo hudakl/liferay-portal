@@ -1310,7 +1310,6 @@ public class JournalUtil {
 				defaultImportLocale);
 
 			if (Validator.isNull(availableLocalesAttribute)) {
-
 				newRootElement.addAttribute(
 					"available-locales", defaultImportLanguageId);
 
@@ -1321,7 +1320,7 @@ public class JournalUtil {
 				content = DDMXMLUtil.formatXML(newDocument);
 			}
 			else if (!StringUtil.contains(
-				availableLocalesAttribute.getValue(),
+						availableLocalesAttribute.getValue(),
 					defaultImportLanguageId)) {
 
 				availableLocalesAttribute.setValue(
@@ -1339,7 +1338,6 @@ public class JournalUtil {
 				"default-locale");
 
 			if (Validator.isNull(defaultLocaleAttribute)) {
-
 				newRootElement.addAttribute(
 					"default-locale", defaultImportLanguageId);
 
@@ -1348,10 +1346,12 @@ public class JournalUtil {
 			else {
 				Locale contentDefaultLocale = LocaleUtil.fromLanguageId(
 					defaultLocaleAttribute.getValue());
-	
-				if (!LocaleUtil.equals(contentDefaultLocale, defaultImportLocale)) {
+
+				if (!LocaleUtil.equals(
+						contentDefaultLocale, defaultImportLocale)) {
+
 					defaultLocaleAttribute.setValue(defaultImportLanguageId);
-	
+
 					content = DDMXMLUtil.formatXML(newDocument);
 				}
 			}
