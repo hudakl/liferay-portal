@@ -545,6 +545,8 @@ AUI.add(
 
 				map[themeDisplay.getLanguageId()] = value;
 
+				map[themeDisplay.getDefaultLanguageId()] = value;
+
 				return JSON.stringify(map);
 			},
 
