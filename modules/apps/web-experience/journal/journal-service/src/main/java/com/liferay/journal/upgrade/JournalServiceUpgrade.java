@@ -99,7 +99,7 @@ public class JournalServiceUpgrade implements UpgradeStepRegistrator {
 
 		registry.register(
 			"com.liferay.journal.service", "1.0.0", "1.0.1",
-			new UpgradeSchema());
+			new com.liferay.journal.upgrade.v1_0_1.UpgradeSchema());
 	}
 
 	protected void deleteTempImages() throws Exception {
