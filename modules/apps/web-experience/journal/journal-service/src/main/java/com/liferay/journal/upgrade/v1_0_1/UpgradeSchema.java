@@ -12,30 +12,21 @@
  * details.
  */
 
-package com.liferay.portal.upgrade;
+package com.liferay.journal.upgrade.v1_0_1;
 
+import com.liferay.journal.upgrade.v1_0_1.util.JournalArticleTable;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
-import com.liferay.portal.kernel.util.ReleaseInfo;
-import com.liferay.portal.upgrade.v7_0_1.UpgradeAsset;
-import com.liferay.portal.upgrade.v7_0_1.UpgradeSocial;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Laszlo Hudak
  */
-public class UpgradeProcess_7_0_1 extends UpgradeProcess {
-
-	@Override
-	public int getThreshold() {
-		return ReleaseInfo.RELEASE_7_0_1_BUILD_NUMBER;
-	}
+public class UpgradeSchema extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-
-		upgrade(UpgradeAsset.class);
-		upgrade(UpgradeSocial.class);
-
-		clearIndexesCache();
+		alter(
+			JournalArticleTable.class,
+			new AlterColumnType("title", "TEXT null"));
 	}
 
 }
