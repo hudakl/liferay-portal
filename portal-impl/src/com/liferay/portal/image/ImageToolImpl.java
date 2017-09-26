@@ -313,6 +313,13 @@ public class ImageToolImpl implements ImageTool {
 	}
 
 	@Override
+	public byte[] cropGif(
+		byte[] imageData, int height, int width, int x, int y) {
+
+		return null;
+	}
+
+	@Override
 	public void encodeGIF(RenderedImage renderedImage, OutputStream os)
 		throws IOException {
 
