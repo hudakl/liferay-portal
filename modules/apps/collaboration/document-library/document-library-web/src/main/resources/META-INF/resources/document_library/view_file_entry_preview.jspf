@@ -124,14 +124,14 @@
 								<div class="lfr-preview-file-content lfr-preview-image-content" id="<portlet:namespace /><%= randomNamespace %>previewFileContent">
 									<div class="lfr-preview-file-image-current-column">
 										<div class="lfr-preview-file-image-container">
-											<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="preview" />" class="lfr-preview-file-image-current" src="<%= previewFileURL %>" />
+											<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="preview" />" class="lfr-preview-file-image-current" src="<%= previewFileURL %>" onload="removeBackground(this)" />
 										</div>
 									</div>
 								</div>
 							</div>
 						</c:when>
 						<c:otherwise>
-							<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="preview" />" class="lfr-preview-file-image-current" src="<%= previewFileURL %>" />
+							<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="preview" />" class="lfr-preview-file-image-current" src="<%= previewFileURL %>" onload="removeBackground(this)" />
 						</c:otherwise>
 					</c:choose>
 				</c:when>
@@ -151,7 +151,7 @@
 						<div class="lfr-preview-file-content" id="<portlet:namespace /><%= randomNamespace %>previewFileContent">
 							<div class="lfr-preview-file-image-current-column">
 								<div class="lfr-preview-file-image-container">
-									<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="preview" />" class="lfr-preview-file-image-current" id="<portlet:namespace /><%= randomNamespace %>previewFileImage" src="<%= previewFileURL + "1" %>" />
+									<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="preview" />" class="lfr-preview-file-image-current" id="<portlet:namespace /><%= randomNamespace %>previewFileImage" src="<%= previewFileURL + "1" %>" onload="removeBackground(this)" />
 								</div>
 
 								<span class="hide lfr-preview-file-actions" id="<portlet:namespace /><%= randomNamespace %>previewFileActions">
@@ -189,3 +189,11 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+
+<liferay-util:html-top>
+	<script>
+		function removeBackground(imageElement) {
+			imageElement.setAttribute("style", "background-image:none;");
+		}
+	</script>
+</liferay-util:html-top>
