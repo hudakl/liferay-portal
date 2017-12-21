@@ -1556,10 +1556,10 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 			thread.setPriority(priority);
 
-			mbThreadPersistence.update(thread);
-
 			updatePriorities(thread.getThreadId(), priority);
 		}
+
+		mbThreadPersistence.update(thread);
 
 		// Asset
 
