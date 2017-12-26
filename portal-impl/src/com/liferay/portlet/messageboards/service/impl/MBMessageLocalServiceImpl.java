@@ -1557,9 +1557,9 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 			thread.setPriority(priority);
 
 			updatePriorities(thread.getThreadId(), priority);
-		}
 
-		mbThreadPersistence.update(thread);
+			mbThreadPersistence.update(thread);
+		}
 
 		// Asset
 
@@ -2030,10 +2030,6 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 			thread.setStatusByUserId(user.getUserId());
 			thread.setStatusByUserName(user.getFullName());
 			thread.setStatusDate(modifiedDate);
-		}
-
-		if (status == oldStatus) {
-			return;
 		}
 
 		if (status == WorkflowConstants.STATUS_APPROVED) {
