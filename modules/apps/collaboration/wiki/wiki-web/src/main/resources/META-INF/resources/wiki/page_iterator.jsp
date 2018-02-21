@@ -210,11 +210,11 @@ for (int i = 0; i < pages.size(); i++) {
 	// Date
 
 	if (!curWikiPage.isNew()) {
-		Date currDate = new Date();
+		Date curDate = new Date();
 		Date modifiedDate = curWikiPage.getStatusDate();
 
 		String dataAsText = LanguageUtil.getTimeDescription(
-			request, currDate.getTime() - modifiedDate.getTime(), true);
+			request, curDate.getTime() - modifiedDate.getTime(), true);
 
 		row.addText(dataAsText, rowURL);
 	}
