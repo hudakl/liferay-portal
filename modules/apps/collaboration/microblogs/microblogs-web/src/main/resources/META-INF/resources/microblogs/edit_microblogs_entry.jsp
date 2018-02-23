@@ -188,7 +188,7 @@ if (comment) {
 	<%
 	String rowCssClass = "button-holder";
 
-	if (!repost) {
+	if (!comment && !repost) {
 		rowCssClass += " hide";
 	}
 	%>
