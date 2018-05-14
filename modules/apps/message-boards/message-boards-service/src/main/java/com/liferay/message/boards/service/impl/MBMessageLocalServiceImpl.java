@@ -2706,8 +2706,10 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 			updatePriorities(thread.getThreadId(), priority);
 		}
 
-		if (message.isRoot() && !Objects.equals(subject, oldSubject)) {
-			thread.setTitle(subject);
+		if (message.isRoot()) {
+			if (!Objects.equals(subject, oldSubject)) {
+				thread.setTitle(subject);
+			}
 
 			mbThreadLocalService.updateMBThread(thread);
 		}
