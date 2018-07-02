@@ -14,6 +14,7 @@
 
 package com.liferay.portal.dao.orm.hibernate;
 
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -27,15 +28,16 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 
 /**
  * @author Roberto Díaz
@@ -48,7 +50,7 @@ public class RestrictionsFactoryTest {
 		new LiferayIntegrationTestRule();
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		DB db = DBManagerUtil.getDB();
 
 		DBType dbType = db.getDBType();
@@ -58,7 +60,10 @@ public class RestrictionsFactoryTest {
 				PropsKeys.DATABASE_IN_MAX_PARAMETERS,
 				new Filter(dbType.getName())));
 
-		Assume.assumeTrue(_databaseInMaxParameters > 0);
+		Field field = ReflectionUtil.getDeclaredField(
+			RestrictionsFactoryImpl.class, "_databaseInMaxParameters");
+
+		field.set(_restrictionsFactoryImpl, 1000);
 	}
 
 	@Test
@@ -90,5 +95,8 @@ public class RestrictionsFactoryTest {
 	}
 
 	private int _databaseInMaxParameters;
+
+	@Mock
+	private RestrictionsFactoryImpl _restrictionsFactoryImpl;
 
 }

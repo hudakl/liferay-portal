@@ -14,6 +14,7 @@
 
 package com.liferay.portal.dao.orm.hibernate;
 
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -32,16 +33,17 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 
 /**
  * @author Mate Thurzo
@@ -103,7 +105,9 @@ public class DynamicQueryTest {
 	}
 
 	@Test
-	public void testInRestrictionCriterionWithMoreThanDatabaseInMaxParametersValue() {
+	public void testInRestrictionCriterionWithMoreThanDatabaseInMaxParametersValue()
+		throws Exception {
+
 		DB db = DBManagerUtil.getDB();
 
 		DBType dbType = db.getDBType();
@@ -113,7 +117,10 @@ public class DynamicQueryTest {
 				PropsKeys.DATABASE_IN_MAX_PARAMETERS,
 				new Filter(dbType.getName())));
 
-		Assume.assumeTrue(databaseInMaxParameters > 0);
+		Field field = ReflectionUtil.getDeclaredField(
+			RestrictionsFactoryImpl.class, "_databaseInMaxParameters");
+
+		field.set(_restrictionsFactoryImpl, 1000);
 
 		DynamicQuery dynamicQuery = ClassNameLocalServiceUtil.dynamicQuery();
 
@@ -305,5 +312,8 @@ public class DynamicQueryTest {
 	}
 
 	private List<ClassName> _allClassNames;
+
+	@Mock
+	private RestrictionsFactoryImpl _restrictionsFactoryImpl;
 
 }
