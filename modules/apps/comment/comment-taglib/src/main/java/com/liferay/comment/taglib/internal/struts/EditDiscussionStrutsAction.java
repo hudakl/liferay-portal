@@ -79,12 +79,12 @@ public class EditDiscussionStrutsAction extends BaseStrutsAction {
 
 		try {
 			String redirect = _portal.escapeRedirect(
-				ParamUtil.getString(request, "redirect"));
+				ParamUtil.getString(namespacedRequest, "redirect"));
 
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
 				long commentId = updateComment(namespacedRequest);
 
-				boolean ajax = ParamUtil.getBoolean(request, "ajax", true);
+				boolean ajax = ParamUtil.getBoolean(namespacedRequest, "ajax", true);
 
 				if (ajax) {
 					String randomNamespace = ParamUtil.getString(
@@ -94,6 +94,7 @@ public class EditDiscussionStrutsAction extends BaseStrutsAction {
 
 					jsonObject.put("commentId", commentId);
 					jsonObject.put("randomNamespace", randomNamespace);
+					jsonObject.put("redirect", redirect);
 
 					writeJSON(namespacedRequest, response, jsonObject);
 
