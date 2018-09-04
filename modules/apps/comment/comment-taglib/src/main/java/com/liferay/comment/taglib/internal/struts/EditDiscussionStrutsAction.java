@@ -14,11 +14,10 @@
 
 package com.liferay.comment.taglib.internal.struts;
 
-import com.liferay.message.boards.exception.DiscussionMaxCommentsException;
-import com.liferay.message.boards.exception.MessageBodyException;
-import com.liferay.message.boards.exception.NoSuchMessageException;
-import com.liferay.message.boards.exception.RequiredMessageException;
-import com.liferay.petra.string.StringPool;
+import com.liferay.message.boards.kernel.exception.DiscussionMaxCommentsException;
+import com.liferay.message.boards.kernel.exception.MessageBodyException;
+import com.liferay.message.boards.kernel.exception.NoSuchMessageException;
+import com.liferay.message.boards.kernel.exception.RequiredMessageException;
 import com.liferay.portal.kernel.comment.Comment;
 import com.liferay.portal.kernel.comment.CommentManager;
 import com.liferay.portal.kernel.comment.DiscussionPermission;
@@ -40,10 +39,12 @@ import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.Function;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.servlet.NamespaceServletRequest;
+import com.liferay.portlet.RenderParametersPool;
 
 import java.io.IOException;
 
@@ -87,6 +88,13 @@ public class EditDiscussionStrutsAction extends BaseStrutsAction {
 				boolean ajax = ParamUtil.getBoolean(namespacedRequest, "ajax", true);
 
 				if (ajax) {
+					ThemeDisplay themeDisplay = 
+						(ThemeDisplay)namespacedRequest.getAttribute(
+							WebKeys.THEME_DISPLAY);
+
+					RenderParametersPool.clear(
+						namespacedRequest, themeDisplay.getPlid());
+
 					String randomNamespace = ParamUtil.getString(
 						namespacedRequest, "randomNamespace");
 
