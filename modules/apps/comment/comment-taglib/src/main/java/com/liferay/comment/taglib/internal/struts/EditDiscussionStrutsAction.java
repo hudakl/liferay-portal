@@ -19,6 +19,7 @@ import com.liferay.message.boards.exception.MessageBodyException;
 import com.liferay.message.boards.exception.NoSuchMessageException;
 import com.liferay.message.boards.exception.RequiredMessageException;
 import com.liferay.petra.string.StringPool;
+import com.liferay.message.boards.model.MBDiscussion;
 import com.liferay.portal.kernel.comment.Comment;
 import com.liferay.portal.kernel.comment.CommentManager;
 import com.liferay.portal.kernel.comment.DiscussionPermission;
@@ -157,6 +158,9 @@ public class EditDiscussionStrutsAction extends BaseStrutsAction {
 
 		String className = ParamUtil.getString(request, "className");
 		long classPK = ParamUtil.getLong(request, "classPK");
+
+		className = MBDiscussion.class.getName() +
+			StringPool.UNDERLINE + className;
 
 		DiscussionPermission discussionPermission = _getDiscussionPermission(
 			themeDisplay);
