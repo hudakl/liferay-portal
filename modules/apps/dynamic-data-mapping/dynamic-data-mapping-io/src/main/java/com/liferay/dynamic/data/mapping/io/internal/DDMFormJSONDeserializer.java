@@ -31,6 +31,7 @@ import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.util.DDMFormFactory;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
@@ -129,7 +130,19 @@ public class DDMFormJSONDeserializer implements DDMFormDeserializer {
 		throws PortalException {
 
 		if (ddmFormFieldTypeSetting.isLocalizable()) {
-			return deserializeLocalizedValue(serializedDDMFormFieldProperty);
+			try {
+				return deserializeLocalizedValue(serializedDDMFormFieldProperty);
+			}
+			catch (JSONException je) {
+				LocalizedValue localizedValue = new LocalizedValue();
+
+				localizedValue
+					.addString(
+						localizedValue.getDefaultLocale(),
+						serializedDDMFormFieldProperty);
+
+				return localizedValue;
+			}
 		}
 
 		String dataType = ddmFormFieldTypeSetting.getDataType();
