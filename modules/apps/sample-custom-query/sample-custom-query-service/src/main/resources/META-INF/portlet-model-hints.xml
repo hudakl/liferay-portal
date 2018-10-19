@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.sample.custom.query.model.Custom">
+		<field name="customId" type="long" />
+		<field name="customName" type="String" />
+	</model>
+</model-hints>

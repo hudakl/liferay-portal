@@ -1,2 +1,7 @@
 Bundle-SymbolicName: sample.custom.query-api
 Bundle-Version: 1.0.0
+Export-Package: \
+	com.liferay.sample.custom.query.exception,\
+	com.liferay.sample.custom.query.model,\
+	com.liferay.sample.custom.query.service,\
+	com.liferay.sample.custom.query.service.persistence

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+	<bean class="com.liferay.sample.custom.query.service.impl.CustomLocalServiceImpl" id="com.liferay.sample.custom.query.service.CustomLocalService" />
+	<bean class="com.liferay.sample.custom.query.service.impl.CustomServiceImpl" id="com.liferay.sample.custom.query.service.CustomService" />
+	<bean class="com.liferay.sample.custom.query.service.persistence.impl.CustomPersistenceImpl" id="com.liferay.sample.custom.query.service.persistence.CustomPersistence" parent="basePersistence" />
+</beans>

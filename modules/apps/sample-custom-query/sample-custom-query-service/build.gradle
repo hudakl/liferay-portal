@@ -4,6 +4,7 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.portal.spring.extender", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	compileOnly project(":apps:sample-custom-query:sample-custom-query-api")
+	compileOnly project(":core:petra:petra-string")
 }
 
 buildService {
