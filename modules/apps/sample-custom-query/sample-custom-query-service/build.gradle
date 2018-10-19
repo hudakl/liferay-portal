@@ -1,0 +1,13 @@
+dependencies {
+	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
+	compileOnly group: "com.liferay", name: "com.liferay.osgi.util", version: "3.0.0"
+	compileOnly group: "com.liferay", name: "com.liferay.portal.spring.extender", version: "default"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
+	compileOnly project(":apps:sample-custom-query:sample-custom-query-api")
+}
+
+buildService {
+	apiDir = "../sample-custom-query-api/src/main/java"
+	osgiModule = true
+	propsUtil = "com.example.service.util.PropsUtil"
+}
