@@ -22,4 +22,5 @@ import aQute.bnd.annotation.ProviderType;
  */
 @ProviderType
 public interface CustomFinder {
+	public java.util.List<String> getCustomNames(String sqlQuery);
 }
