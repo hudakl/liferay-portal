@@ -2,11 +2,14 @@ package com.liferay.sample.custom.query.service.persistence.impl;
 
 import java.util.List;
 
-import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.sample.custom.query.service.persistence.CustomFinder;
 
-public class CustomFinderImpl extends CustomFinderBaseImpl {
+public class CustomFinderImpl extends CustomFinderBaseImpl 
+	implements CustomFinder {
 
 	public List<String> getCustomNames(String sqlQuery) {
 		Session session = null;
@@ -18,18 +21,11 @@ public class CustomFinderImpl extends CustomFinderBaseImpl {
 
 			queryObject.setCacheable(true);
 
-			QueryPos qPos = QueryPos.getInstance(queryObject);
-	
-			for (int i = 0; i < params.length; i++) {
-				if (params[i] != null)
-					qPos.add(params[i]);
-			}
-
 			List<String> result = queryObject.list();
 			return result;
 		} 
 		catch (Exception e) {
-			log.error(FormattingUtil.getMessage(e));
+			log.error(e.getMessage());
 		} 
 		finally {
 			closeSession(session);
@@ -37,4 +33,6 @@ public class CustomFinderImpl extends CustomFinderBaseImpl {
 
 		return null;
 	}
+
+	private static final Log log = LogFactoryUtil.getLog(CustomFinderImpl.class);
 }

@@ -48,7 +48,7 @@ public class CustomServiceImpl extends CustomServiceBaseImpl {
 	public List<String> getEntryNames() {
 		List<String> customNames = null;
 		try {
-			String query = "select name from sample_custom";
+			String query = "select customName from sample_custom";
 			customNames = customFinder.getCustomNames(query);
 		} catch (Exception e) {
 		}
