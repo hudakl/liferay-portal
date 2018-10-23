@@ -42,6 +42,13 @@ public class CustomServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.sample.custom.query.service.impl.CustomServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static void createEntry(String name) {
+		getService().createEntry(name);
+	}
+
+	public static java.util.List<String> getEntryNames() {
+		return getService().getEntryNames();
+	}
 
 	/**
 	* Returns the OSGi service identifier.

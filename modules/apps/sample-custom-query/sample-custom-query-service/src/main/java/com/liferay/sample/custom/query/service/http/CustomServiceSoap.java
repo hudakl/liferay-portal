@@ -16,9 +16,16 @@ package com.liferay.sample.custom.query.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import com.liferay.sample.custom.query.service.CustomServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link com.liferay.sample.custom.query.service.CustomServiceUtil} service utility. The
+ * {@link CustomServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,34 @@ import aQute.bnd.annotation.ProviderType;
  * @author Brian Wing Shun Chan
  * @see CustomServiceHttp
  * @see com.liferay.sample.custom.query.model.CustomSoap
- * @see com.liferay.sample.custom.query.service.CustomServiceUtil
+ * @see CustomServiceUtil
  * @generated
  */
 @ProviderType
 public class CustomServiceSoap {
+	public static void createEntry(String name) throws RemoteException {
+		try {
+			CustomServiceUtil.createEntry(name);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static String[] getEntryNames() throws RemoteException {
+		try {
+			java.util.List<String> returnValue = CustomServiceUtil.getEntryNames();
+
+			return returnValue.toArray(new String[returnValue.size()]);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(CustomServiceSoap.class);
 }

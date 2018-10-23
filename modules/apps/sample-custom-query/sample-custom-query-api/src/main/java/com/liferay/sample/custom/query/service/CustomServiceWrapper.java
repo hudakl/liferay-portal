@@ -32,6 +32,16 @@ public class CustomServiceWrapper implements CustomService,
 		_customService = customService;
 	}
 
+	@Override
+	public void createEntry(String name) {
+		_customService.createEntry(name);
+	}
+
+	@Override
+	public java.util.List<String> getEntryNames() {
+		return _customService.getEntryNames();
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
