@@ -49,7 +49,7 @@ public class CustomServiceImpl extends CustomServiceBaseImpl {
 		List<String> customNames = null;
 		try {
 			String query = "select name from sample_custom";
-//			customNames = customFinder.getCustomScalarValue(query, new Object[] {});
+			customNames = customFinder.getCustomNames(query);
 		} catch (Exception e) {
 		}
 
