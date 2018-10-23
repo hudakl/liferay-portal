@@ -10,4 +10,5 @@
 	<bean class="com.liferay.sample.custom.query.service.impl.CustomLocalServiceImpl" id="com.liferay.sample.custom.query.service.CustomLocalService" />
 	<bean class="com.liferay.sample.custom.query.service.impl.CustomServiceImpl" id="com.liferay.sample.custom.query.service.CustomService" />
 	<bean class="com.liferay.sample.custom.query.service.persistence.impl.CustomPersistenceImpl" id="com.liferay.sample.custom.query.service.persistence.CustomPersistence" parent="basePersistence" />
+	<bean class="com.liferay.sample.custom.query.service.persistence.impl.CustomFinderImpl" id="com.liferay.sample.custom.query.service.persistence.CustomFinder" parent="basePersistence" />
 </beans>

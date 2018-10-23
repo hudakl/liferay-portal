@@ -29,6 +29,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import com.liferay.sample.custom.query.model.Custom;
 import com.liferay.sample.custom.query.service.CustomService;
+import com.liferay.sample.custom.query.service.persistence.CustomFinder;
 import com.liferay.sample.custom.query.service.persistence.CustomPersistence;
 
 import javax.sql.DataSource;
@@ -106,6 +107,24 @@ public abstract class CustomServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setCustomPersistence(CustomPersistence customPersistence) {
 		this.customPersistence = customPersistence;
+	}
+
+	/**
+	 * Returns the custom finder.
+	 *
+	 * @return the custom finder
+	 */
+	public CustomFinder getCustomFinder() {
+		return customFinder;
+	}
+
+	/**
+	 * Sets the custom finder.
+	 *
+	 * @param customFinder the custom finder
+	 */
+	public void setCustomFinder(CustomFinder customFinder) {
+		this.customFinder = customFinder;
 	}
 
 	/**
@@ -313,6 +332,8 @@ public abstract class CustomServiceBaseImpl extends BaseServiceImpl
 	protected CustomService customService;
 	@BeanReference(type = CustomPersistence.class)
 	protected CustomPersistence customPersistence;
+	@BeanReference(type = CustomFinder.class)
+	protected CustomFinder customFinder;
 	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
 	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
 	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)
