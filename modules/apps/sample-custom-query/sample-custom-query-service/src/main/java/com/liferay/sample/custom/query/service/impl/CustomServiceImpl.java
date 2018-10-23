@@ -14,6 +14,10 @@
 
 package com.liferay.sample.custom.query.service.impl;
 
+import java.util.List;
+
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.sample.custom.query.model.Custom;
 import com.liferay.sample.custom.query.service.base.CustomServiceBaseImpl;
 
 /**
@@ -31,9 +35,24 @@ import com.liferay.sample.custom.query.service.base.CustomServiceBaseImpl;
  * @see com.liferay.sample.custom.query.service.CustomServiceUtil
  */
 public class CustomServiceImpl extends CustomServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link com.liferay.sample.custom.query.service.CustomServiceUtil} to access the custom remote service.
-	 */
+
+	public void createEntry(String name) {
+		try {
+			Custom entry = customPersistence.create(CounterLocalServiceUtil.increment(Custom.class.getName()));
+			entry.setCustomName(name);
+			customPersistence.update(entry);
+		} catch (Exception e) {
+		}
+	}
+
+	public List<String> getEntryNames() {
+		List<String> customNames = null;
+		try {
+			String query = "select name from sample_custom";
+//			customNames = customFinder.getCustomScalarValue(query, new Object[] {});
+		} catch (Exception e) {
+		}
+
+		return customNames;
+	}
 }
