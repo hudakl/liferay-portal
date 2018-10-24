@@ -21,6 +21,7 @@ import com.liferay.portal.dao.orm.hibernate.HSQLDialect;
 import com.liferay.portal.dao.orm.hibernate.MariaDBDialect;
 import com.liferay.portal.dao.orm.hibernate.SQLServer2005Dialect;
 import com.liferay.portal.dao.orm.hibernate.SQLServer2008Dialect;
+import com.liferay.portal.dao.orm.hibernate.SQLServerDialect;
 import com.liferay.portal.dao.orm.hibernate.SybaseASE157Dialect;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -121,6 +122,9 @@ public class DialectDetector {
 			}
 			else if (dbName.startsWith("Microsoft") && (dbMajorVersion == 10)) {
 				dialect = new SQLServer2008Dialect();
+			}
+			else if (dbName.startsWith("Microsoft")) {
+				dialect = new SQLServerDialect();
 			}
 			else if (dbName.startsWith("Oracle") && (dbMajorVersion >= 10)) {
 				dialect = new Oracle10gDialect();
