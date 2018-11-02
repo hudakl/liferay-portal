@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+	<sql id="com.liferay.sample.custom.query.service.persistence.CustomFinder.getCustomNames">
+		SELECT customName FROM sample_custom
+	</sql>
+</custom-sql>
