@@ -61,7 +61,7 @@ public class CheckAssetEntryMessageListener extends BaseMessageListener {
 
 		Trigger trigger = _triggerFactory.createTrigger(
 			className, className, null, null,
-			assetPublisherWebConfiguration.checkInterval(), TimeUnit.HOUR);
+			assetPublisherWebConfiguration.checkInterval(), TimeUnit.MINUTE);
 
 		SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
 			className, trigger);
