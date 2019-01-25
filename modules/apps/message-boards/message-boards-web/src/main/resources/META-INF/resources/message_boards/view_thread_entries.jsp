@@ -89,7 +89,7 @@ SearchContainer entriesSearchContainer = (SearchContainer)request.getAttribute("
 					if (thread.getLastPostByUserId() != 0) {
 						MBMessage lastThreadMessage = MBMessageLocalServiceUtil.getLastThreadMessage(thread.getThreadId(), thread.getStatus());
 
-						messageUserName = HtmlUtil.escape(PortalUtil.getUserName(lastThreadMessage.getUserId(), lastThreadMessage.getUserName()));
+						messageUserName = HtmlUtil.escape(lastThreadMessage.getUserName());
 					}
 
 					Date lastPostDate = thread.getLastPostDate();
