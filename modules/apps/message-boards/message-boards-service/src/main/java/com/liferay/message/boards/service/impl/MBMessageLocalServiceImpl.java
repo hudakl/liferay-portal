@@ -43,7 +43,9 @@ import com.liferay.message.boards.service.MBStatsUserLocalService;
 import com.liferay.message.boards.service.base.MBMessageLocalServiceBaseImpl;
 import com.liferay.message.boards.settings.MBGroupServiceSettings;
 import com.liferay.message.boards.social.MBActivityKeys;
+import com.liferay.message.boards.util.comparator.MBObjectsModifiedDateComparator;
 import com.liferay.message.boards.util.comparator.MessageCreateDateComparator;
+import com.liferay.message.boards.util.comparator.MessageIdComparator;
 import com.liferay.message.boards.util.comparator.MessageThreadComparator;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
@@ -1202,7 +1204,11 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	public MBMessage getLastThreadMessage(long threadId, int status)
 		throws PortalException {
 
-		return mbMessagePersistence.findByT_S_Last(threadId, status, null);
+		OrderByComparator orderByComparator =
+			new MessageIdComparator(true);
+
+		return mbMessagePersistence.findByT_S_Last(
+			threadId, status, orderByComparator);
 	}
 
 	@Override
