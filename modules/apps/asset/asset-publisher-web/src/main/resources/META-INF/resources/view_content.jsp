@@ -28,6 +28,7 @@ if (Validator.isNotNull(returnToFullPageURL)) {
 long assetEntryId = ParamUtil.getLong(request, "assetEntryId");
 String type = ParamUtil.getString(request, "type");
 long groupId = ParamUtil.getLong(request, "groupId", scopeGroupId);
+long companyId = ParamUtil.getLong(request, "companyId");
 String urlTitle = ParamUtil.getString(request, "urlTitle");
 
 boolean workflowPreview = GetterUtil.getBoolean(request.getAttribute(WebKeys.WORKFLOW_ASSET_PREVIEW));
@@ -48,7 +49,7 @@ AssetRenderer<?> assetRenderer = null;
 if (Validator.isNotNull(urlTitle)) {
 	assetRenderer = assetRendererFactory.getAssetRenderer(groupId, urlTitle);
 
-	if(workflowPreview) {
+	if (workflowPreview && permissionChecker.isContentReviewer(companyId, groupId)) {
 		long classPK = assetRenderer.getClassPK();
 
 		assetRenderer = assetRendererFactory.getAssetRenderer(classPK, AssetRendererFactory.TYPE_LATEST);
