@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -174,10 +175,20 @@ public class AssetPublisherViewContentDisplayContext {
 			return;
 		}
 
+		boolean workflowPreview = GetterUtil.getBoolean(
+			_renderRequest.getAttribute(WebKeys.WORKFLOW_ASSET_PREVIEW));
+
 		try {
 			if (Validator.isNotNull(_getURLTitle())) {
 				_assetRenderer = _assetRendererFactory.getAssetRenderer(
 					getGroupId(), _getURLTitle());
+
+				if(workflowPreview) {
+					long classPK = _assetRenderer.getClassPK();
+
+					_assetRenderer = _assetRendererFactory.getAssetRenderer(
+						classPK, AssetRendererFactory.TYPE_LATEST);
+				}
 
 				_assetEntry = _assetRendererFactory.getAssetEntry(
 					_assetRendererFactory.getClassName(),
