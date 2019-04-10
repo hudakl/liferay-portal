@@ -445,7 +445,7 @@ public class JournalArticleAssetRenderer
 				JournalArticleConstants.CANONICAL_URL_SEPARATOR
 			).concat(
 				_article.getUrlTitle(themeDisplay.getLocale())
-			));
+			), true, true);
 	}
 
 	@Override
