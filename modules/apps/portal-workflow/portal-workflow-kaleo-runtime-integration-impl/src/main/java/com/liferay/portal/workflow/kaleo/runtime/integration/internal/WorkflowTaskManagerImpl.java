@@ -964,26 +964,34 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 		if ((role.getType() == RoleConstants.TYPE_SITE) ||
 			(role.getType() == RoleConstants.TYPE_ORGANIZATION)) {
 
-			List<UserGroupRole> userGroupRoles =
-				_userGroupRoleLocalService.getUserGroupRolesByGroupAndRole(
-					kaleoTaskInstanceToken.getGroupId(), assigneeClassPK);
-
-			for (UserGroupRole userGroupRole : userGroupRoles) {
-				User user = userGroupRole.getUser();
-
-				users.add(user);
-			}
-
-			List<UserGroupGroupRole> userGroupGroupRoles =
-				_userGroupGroupRoleLocalService.
-					getUserGroupGroupRolesByGroupAndRole(
-						kaleoTaskInstanceToken.getGroupId(), assigneeClassPK);
-
-			for (UserGroupGroupRole userGroupGroupRole : userGroupGroupRoles) {
-				List<User> userGroupUsers = _userLocalService.getUserGroupUsers(
-					userGroupGroupRole.getUserGroupId());
-
+			if(role.getName().equals(RoleConstants.SITE_MEMBER)) {
+				List<User> userGroupUsers = _userLocalService.getGroupUsers(
+					kaleoTaskInstanceToken.getGroupId());
+	
 				users.addAll(userGroupUsers);
+			}
+			else {
+				List<UserGroupRole> userGroupRoles =
+					_userGroupRoleLocalService.getUserGroupRolesByGroupAndRole(
+						kaleoTaskInstanceToken.getGroupId(), assigneeClassPK);
+	
+				for (UserGroupRole userGroupRole : userGroupRoles) {
+					User user = userGroupRole.getUser();
+	
+					users.add(user);
+				}
+	
+				List<UserGroupGroupRole> userGroupGroupRoles =
+					_userGroupGroupRoleLocalService.
+						getUserGroupGroupRolesByGroupAndRole(
+							kaleoTaskInstanceToken.getGroupId(), assigneeClassPK);
+	
+				for (UserGroupGroupRole userGroupGroupRole : userGroupGroupRoles) {
+					List<User> userGroupUsers = _userLocalService.getUserGroupUsers(
+						userGroupGroupRole.getUserGroupId());
+	
+					users.addAll(userGroupUsers);
+				}
 			}
 		}
 		else {
