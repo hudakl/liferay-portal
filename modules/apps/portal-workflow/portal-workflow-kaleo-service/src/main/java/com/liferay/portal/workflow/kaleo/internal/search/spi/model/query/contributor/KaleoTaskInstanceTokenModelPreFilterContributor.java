@@ -518,8 +518,7 @@ public class KaleoTaskInstanceTokenModelPreFilterContributor
 	}
 
 	protected void mapSiteMemberGroupId(
-		long companyId, long userId,
-		Map<Long, Set<Long>> roleIdGroupIdsMap) {
+		long companyId, long userId, Map<Long, Set<Long>> roleIdGroupIdsMap) {
 
 		try {
 			Role siteMemberRole = roleLocalService.getRole(
@@ -531,7 +530,7 @@ public class KaleoTaskInstanceTokenModelPreFilterContributor
 
 			User user = userLocalService.getUserById(userId);
 
-			for (Long groupId: user.getGroupIds()) {
+			for (Long groupId : user.getGroupIds()) {
 				groupIds.add(groupId);
 			}
 		}
