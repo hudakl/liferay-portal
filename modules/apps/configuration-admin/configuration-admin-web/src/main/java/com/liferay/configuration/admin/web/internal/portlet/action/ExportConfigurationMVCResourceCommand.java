@@ -19,6 +19,7 @@ import com.liferay.configuration.admin.web.internal.exporter.ConfigurationExport
 import com.liferay.configuration.admin.web.internal.model.ConfigurationModel;
 import com.liferay.configuration.admin.web.internal.util.AttributeDefinitionUtil;
 import com.liferay.configuration.admin.web.internal.util.ConfigurationModelRetriever;
+import com.liferay.configuration.admin.web.internal.util.EscapePropertiesUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition.Scope;
 import com.liferay.portal.configuration.metatype.definitions.ExtendedAttributeDefinition;
@@ -269,8 +270,9 @@ public class ExportConfigurationMVCResourceCommand
 				continue;
 			}
 
-			Object value = AttributeDefinitionUtil.getPropertyObject(
-				attributeDefinition, configuration);
+			Object value = EscapePropertiesUtil.escapeProperties(
+				AttributeDefinitionUtil.getPropertyObject(
+					attributeDefinition, configuration));
 
 			if (value == null) {
 				continue;
