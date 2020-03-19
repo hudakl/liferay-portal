@@ -22,6 +22,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 import org.apache.felix.cm.file.ConfigurationHandler;
+import org.apache.felix.utils.properties.TypedProperties;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -90,6 +91,24 @@ public class ConfigurationExportImportTest {
 			arrayValues, (String[])dictionary.get(arrayKey));
 	}
 
+	@Test
+	public void testExportImportTypedProperty() throws Exception {
+		String nestedKey = "typedKey";
+		String nestedValue = "${foo.${bar}}";
+
+		_dictionary.put(nestedKey, nestedValue);
+
+		Dictionary<String, Object> escapedDictionary = new Hashtable<>();
+
+		escapedDictionary.put(
+			nestedKey, EscapePropertiesUtil.escapeProperty(nestedValue));
+
+		Dictionary<String, Object> dictionary = _exportImportTypedProperties(
+			escapedDictionary);
+
+		Assert.assertEquals(_dictionary, dictionary);
+	}
+
 	@SuppressWarnings("unchecked")
 	private Dictionary<String, Object> _exportImportProperties(
 			Dictionary<String, Object> dictionary)
@@ -98,6 +117,25 @@ public class ConfigurationExportImportTest {
 		byte[] bytes = ConfigurationExporter.getPropertiesAsBytes(dictionary);
 
 		return ConfigurationHandler.read(new UnsyncByteArrayInputStream(bytes));
+	}
+
+	private Dictionary<String, Object> _exportImportTypedProperties(
+			Dictionary<String, Object> dictionary)
+		throws Exception {
+
+		byte[] bytes = ConfigurationExporter.getPropertiesAsBytes(dictionary);
+
+		TypedProperties typedProperties = new TypedProperties();
+
+		typedProperties.load(new UnsyncByteArrayInputStream(bytes));
+
+		Hashtable<String, Object> importedDictionary = new Hashtable<>();
+
+		for (String key : typedProperties.keySet()) {
+			importedDictionary.put(key, typedProperties.get(key));
+		}
+
+		return importedDictionary;
 	}
 
 	private Dictionary<String, Object> _dictionary;
