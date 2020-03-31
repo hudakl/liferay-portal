@@ -15,8 +15,12 @@
 package com.liferay.configuration.admin.web.internal.exporter;
 
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
+import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.List;
 
 import org.apache.felix.cm.file.ConfigurationHandler;
 
@@ -24,6 +28,36 @@ import org.apache.felix.cm.file.ConfigurationHandler;
  * @author Pei-Jung Lan
  */
 public class ConfigurationExporter {
+
+	public static Object escapeProperties(Object properties) {
+		if (properties instanceof String) {
+			return escapeProperty(String.valueOf(properties));
+		}
+
+		if (properties instanceof String[]) {
+			List<String> escapedProperties = new ArrayList<>();
+
+			for (String property :
+					ArrayUtil.toStringArray((Object[])properties)) {
+
+				escapedProperties.add(escapeProperty(property));
+			}
+
+			return ArrayUtil.toStringArray(escapedProperties);
+		}
+
+		return properties;
+	}
+
+	public static String escapeProperty(String property) {
+		if (property.contains("${") &&
+			(property.indexOf("${") < property.lastIndexOf("}"))) {
+
+			return StringUtil.replace(property, "${", "$\\{");
+		}
+
+		return property;
+	}
 
 	public static byte[] getPropertiesAsBytes(Dictionary properties)
 		throws Exception {
